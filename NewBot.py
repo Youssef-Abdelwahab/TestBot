@@ -1,5 +1,7 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, ContextTypes, filters
+import os
+token = os.getenv("BOT_TOKEN")
 
 async def unknown(update, context):
     await update.message.reply_text(
@@ -12,7 +14,7 @@ async def start(update, context):
     )
 
 def main():
-    application = Application.builder().token("8396089284:AAFm-ICZqIzQRh_wTCso_j8mfTy_HI9gZ7Q").build()
+    application = Application.builder().token(token).build()
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(MessageHandler(filters.COMMAND | filters.TEXT, unknown))
@@ -20,4 +22,5 @@ def main():
     application.run_polling()
 
 if __name__ == "__main__":
+
     main()
